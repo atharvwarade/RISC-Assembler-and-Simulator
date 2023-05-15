@@ -381,40 +381,5 @@ else:
                     op=op+labels[z[1]]
                 elif z[0]=="hlt" or z[-1]=="hlt":
                     op=str(11010)+unused["f"]*"0"
-                else:
-                    if z[0]=="mov":
-                        op=op+"00011"
-                        op=op+"00000"
-                        for m in range(1,len(z)):
-                            if int(z[1][-1])>=6 and int(z[1][-1])<=0:
-                                op='Register not present'
-                                break
-                            else:
-                                op=op+disc_reg[z[m]]
-                    else:
-                        op=op+str(disc_isa[z[0]]["opcode"])
-                        op=op+unused[disc_isa[z[0]]["type"]]*"0"
-                        for m in range(1,len(z)):
-                            if int(z[1][-1])>=6 and int(z[1][-1])<=0:
-                                op='Register not present'
-                                break
-                            else:
-                                op=op+disc_reg[z[m]]
-                g.write(op)
-                g.write("\n")
-                count=count+1
-                opcode_list.append(op)
-            '''for i in range(1,len(z)):
-
-                if z[i] in disc_isa:
-                    op=op+disc_isa[z[i]]["opcode"]
-                    op=op+unused[disc_isa[z[i]]["type"]]*"0"
-                elif z[i] in disc_reg:
-                    op=op+disc_reg[z[i]]
                 
-
-
-            count=count+1
-            print(op)
-            opcode_list.append(op)'''
 
