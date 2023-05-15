@@ -454,4 +454,45 @@ else:
                             op='Register not present'
                 elif [z[0][-1]]==":" and len(z)==1:
                     continue
+                elif disc_isa[z[0]]["type"]=="d":
+                    op=op+disc_isa[z[0]]["opcode"]
+                    op=op+"0"
+                    if int(z[1][-1])<=6 and int(z[1][-1])>=0:
+                        op=op+disc_reg[z[1]]
+                        if z[2] in labels:
+                            op=op+labels[z[2]]
+                        elif z[2] in variables:
+                            op=op+str(variables[z[2]])
+                    else:
+                        op='Register not present'
+                elif disc_isa[z[0]]["type"]=="e":
+                    op=op+disc_isa[z[0]]["opcode"]
+                    op=op+"0000"
+                    op=op+labels[z[1]]
+                elif z[0]=="hlt" or z[-1]=="hlt":
+                    op=str(11010)+unused["f"]*"0"
+                else:
+                    if z[0]=="mov":
+                        op=op+"00011"
+                        op=op+"00000"
+                        for m in range(1,len(z)):
+                            if int(z[1][-1])>=6 and int(z[1][-1])<=0:
+                                op=''
+                                break
+                            else:
+                                op=op+disc_reg[z[m]]
+                    else:
+                        op=op+str(disc_isa[z[0]]["opcode"])
+                        op=op+unused[disc_isa[z[0]]["type"]]*"0"
+                        for m in range(1,len(z)):
+                            if int(z[1][-1])>=6 and int(z[1][-1])<=0:
+                                op='Register not present'
+                                break
+                            else:
+                                op=op+disc_reg[z[m]]
+                g.write(op)
+                g.write("\n")
+                count=count+1
+                opcode_list.append(op)
+f.close()
 
