@@ -463,8 +463,3 @@ else:
                     op=op+labels[z[1]]
                 elif z[0]=="hlt" or z[-1]=="hlt":
                     op=str(11010)+unused["f"]*"0"
-                
-
-
-            count=count+1
-            print(op)
