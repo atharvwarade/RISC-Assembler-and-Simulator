@@ -407,6 +407,62 @@ else:
                     op=op+unused[disc_isa[z[i]]["type"]]*"0"
                 elif z[i] in disc_reg:
                     op=op+disc_reg[z[i]]
+                    opcode_list.append(op)'''
+
+        else:
+            if len(z) in length_opcode and z[0]!="var":
+                if z[-1]=="FLAGS":
+                    if z[0]=="mov":
+                        if int(z[1][-1])<=6 and int(z[1][-1])>=0:
+                            op=op+"00011"
+                            op=op+5*"0"
+                            op=op+disc_reg[z[1]]
+                            op=op+"111"
+                        
+                elif z[-1][0]=="$":
+                    if z[0]=="mov":
+                        op=op+"00010"
+                        op=op+'0'
+                        if int(z[1][-1])<=6 and int(z[1][-1])>=0:
+                            op=op+disc_reg[z[1]]
+                            if int(z[2][1:])>=0 and int(z[2][1:])<128:
+                                bin=DecimalToBinary(int(z[2][1:]))
+                                bin=(7-len(bin))*"0"+bin
+                                op=op+bin
+                            else:
+                                op='immediate value exceeds 127'
+                        else:
+                            op='Register not present'
+                    else:
+                        op=op+disc_isa[z[0]]["opcode"]
+                        op=op+'0'
+                        if int(z[1][-1])<=6 and int(z[1][-1])>=0:
+                            op=op+disc_reg[z[1]]
+                            bin=DecimalToBinary(int(z[2][1:]))
+                            bin=(7-len(bin))*"0"+bin
+                            op=op+bin
+                        else:
+                            op='Register not present'
+                elif [z[0][-1]]==":" and len(z)==1:
+                    continue
+                #elif disc_isa[z[0][-1]]==":" and len(z)!=1:
+                elif disc_isa[z[0]]["type"]=="d":
+                    op=op+disc_isa[z[0]]["opcode"]
+                    op=op+"0"
+                    if int(z[1][-1])<=6 and int(z[1][-1])>=0:
+                        op=op+disc_reg[z[1]]
+                        if z[2] in labels:
+                            op=op+labels[z[2]]
+                        elif z[2] in variables:
+                            op=op+str(variables[z[2]])
+                    else:
+                        op='Register not present'
+                elif disc_isa[z[0]]["type"]=="e":
+                    op=op+disc_isa[z[0]]["opcode"]
+                    op=op+"0000"
+                    op=op+labels[z[1]]
+                elif z[0]=="hlt" or z[-1]=="hlt":
+                    op=str(11010)+unused["f"]*"0"
                 
 
 
