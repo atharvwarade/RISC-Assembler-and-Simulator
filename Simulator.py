@@ -249,7 +249,7 @@ while halted!=True:
         for i in range(7):
             temp=DecimalToBinary(reg_values["R"+str(i)])
             temp=(16-len(temp))*"0"+temp
-            print(temp,end=" ")
+            print(temp,end="        ")
         print(reg_values["FLAGS"])
         halted=True
         break
