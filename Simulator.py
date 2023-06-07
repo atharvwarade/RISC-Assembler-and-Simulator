@@ -80,6 +80,9 @@ def reg_checker(str):
 g=opcode_list[counter]
 new_var=[]
 while halted!=True:
+    counterbin=(DecimalToBinary(counter))
+    counterbin=(7-len(counterbin))*"0"+counterbin
+    print(counterbin,end="        ")
     #if reg_values["FLAGS"]!="0000000000000000":
         #reg_values["FLAGS"]="0000000000000000"
     inst=''
@@ -203,49 +206,34 @@ while halted!=True:
     if disc_isa[inst]["type"]=="e":
         #x1=label_checker(g[9:16])
         if inst=="jmp":
-            for i in range(len(opcode_list)):
-                '''if opcode_list[i]==label_code[x1]:
-                    counter=i'''
+            counter=binaryToDecimal(g[9:])
             if reg_values["FLAGS"]!="0000000000000000":
                 reg_values["FLAGS"]="0000000000000000"
-            counter+=1
         if inst=="jlt":
             if reg_values["FLAGS"][-3]=="1":
-                for i in range(len(opcode_list)):
-                    '''if opcode_list[i]==label_code[x1]:
-                        counter=i'''
+                counter=binaryToDecimal(g[9:])
             if reg_values["FLAGS"]!="0000000000000000":
                 reg_values["FLAGS"]="0000000000000000"
-                counter+=1
             else:
                 reg_values["FLAGS"]="0000000000000000"
                 counter+=1
         if inst=="jgt":
             if reg_values["FLAGS"][-2]=="1":
-                for i in range(len(opcode_list)):
-                    '''if opcode_list[i]==label_code[x1]:
-                        counter=i'''
+                counter=binaryToDecimal(g[9:])
             if reg_values["FLAGS"]!="0000000000000000":
                 reg_values["FLAGS"]="0000000000000000"
-                counter+=1
             else:
                 reg_values["FLAGS"]="0000000000000000"
                 counter+=1
         if inst=="je":
             if reg_values["FLAGS"][-1]=="1":
-                for i in range(len(opcode_list)):
-                    '''if opcode_list[i]==label_code[x1]:
-                        counter=i'''
+                counter=binaryToDecimal(g[9:])
             if reg_values["FLAGS"]!="0000000000000000":
                 reg_values["FLAGS"]="0000000000000000"
-                counter+=1
             else:
                 reg_values["FLAGS"]="0000000000000000"
                 counter+=1
     if disc_isa[inst]["type"]=="f":
-        counterbin=(DecimalToBinary(counter))
-        counterbin=(7-len(counterbin))*"0"+counterbin
-        print(counterbin,end="        ")
         for i in range(7):
             temp=DecimalToBinary(reg_values["R"+str(i)])
             temp=(16-len(temp))*"0"+temp
@@ -253,9 +241,6 @@ while halted!=True:
         print(reg_values["FLAGS"])
         halted=True
         break
-    counterbin=(DecimalToBinary(counter-1))
-    counterbin=(7-len(counterbin))*"0"+counterbin
-    print(counterbin,end="        ")
     for i in range(7):
         temp=DecimalToBinary(reg_values["R"+str(i)])
         temp=(16-len(temp))*"0"+temp
