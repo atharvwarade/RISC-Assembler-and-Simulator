@@ -255,7 +255,7 @@ while halted!=True:
         break
     counterbin=(DecimalToBinary(counter-1))
     counterbin=(7-len(counterbin))*"0"+counterbin
-    print(counterbin,end=" ")
+    print(counterbin,end="        ")
     for i in range(7):
         temp=DecimalToBinary(reg_values["R"+str(i)])
         temp=(16-len(temp))*"0"+temp
