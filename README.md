@@ -1,5 +1,5 @@
 # CO-Project
-We created a custom build assembler using the given ISA sheet. 
+We created a custom build assembler and simulator using the given ISA sheet. This project will help in execution of assembly programs 
 Details of the Group: 
 Group No - B6
 
